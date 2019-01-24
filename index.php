@@ -10,9 +10,6 @@ and open the template in the editor.
         <title>Hola Mundo</title>
     </head>
     <body>
-        <h1>Hola Mundo   Riera! xa!!!</h1>
-        <?php
-        grhgfhrg\
-        ?>
+        <h1>Hola Mundo Riera-Xavier!!!</h1>]
     </body>
 </html>
