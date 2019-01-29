@@ -231,3 +231,29 @@ input, select {
 .alert p {
     padding: 10px;
 }
+
+/*-----------Lista Usuario----------*/
+#container h1{
+    font-size: 35px;
+    display: inline-block;
+ }
+ .btn_new{
+     display: inline-block;
+     background: #239baa;
+     color: #FFF;
+     padding: 5px 25px;
+     border-radius: 4px;
+     margin: 20px;
+ }
+ table{
+     border-collapse: collapse;
+     font-size: 12pt;
+     font-family: "arial";
+     width: 100%;
+ }
+ table th{
+     text-align: left;
+     padding: 10px;
+     background: #3d7ba8;
+     color: #FFF;
+ }
