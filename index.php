@@ -1,66 +1,60 @@
+<?php
+$alert = '';
+session_start();
+if (!empty($_SESSION['active'])) {
+    header('location: sistema/');
+} else {
+    if (!empty($_POST)) {
+        if (empty($_POST['usuario'] || empty($_POST['clave']))) {
+            $alert = 'Ingrese su usuario y su clave';
+        } else {
+            require 'conexion.php';
+
+            $user = $_POST['usuario'];
+            $pass = $_POST['clave'];
+
+            $query = mysqli_query($conection, "SELECT * FROM usuario WHERE usuario = '$user' AND clave = '$pass'");
+            $result = mysqli_num_rows($query);
+
+            if ($result > 0) {
+                $data = mysqli_fetch_array($query);
+                
+                $_SESSION['active'] = true;
+                $_SESSION['idUser'] = $data['idusuario'];
+                $_SESSION['nombre'] = $data['nombre'];
+                $_SESSION['email'] = $data['email'];
+                $_SESSION['user'] = $data['usuario'];
+                $_SESSION['rol'] = $data['rol'];
+
+                header('location: sistema/');
+            } else {
+                $alert = 'El usuario o la clave son incorrectos';
+                session_destroy();
+            }
+        }
+    }
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<title>Sisteme Ventas</title>
-</head>
-<body>
-	<header>
-		<div class="header">
-			
-			<h1>Sistema Facturación</h1>
-			<div class="optionsBar">
-				<p>Guatemala, 20 noviembre de 2017</p>
-				<span>|</span>
-				<span class="user">Julio Estrada</span>
-				<img class="photouser" src="img/user.png" alt="Usuario">
-				<a href="#"><img class="close" src="img/salir.png" alt="Salir del sistema" title="Salir"></a>
-			</div>
-		</div>
-		<nav>
-			<ul>
-				<li><a href="#">Inicio</a></li>
-				<li class="principal">
-					<a href="#">Usuarios</a>
-					<ul>
-						<li><a href="#">Nuevo Usuario</a></li>
-						<li><a href="#">Lista de Usuarios</a></li>
-					</ul>
-				</li>
-				<li class="principal">
-					<a href="#">Clientes</a>
-					<ul>
-						<li><a href="#">Nuevo Cliente</a></li>
-						<li><a href="#">Lista de Clientes</a></li>
-					</ul>
-				</li>
-				<li class="principal">
-					<a href="#">Proveedores</a>
-					<ul>
-						<li><a href="#">Nuevo Proveedor</a></li>
-						<li><a href="#">Lista de Proveedores</a></li>
-					</ul>
-				</li>
-				<li class="principal">
-					<a href="#">Productos</a>
-					<ul>
-						<li><a href="#">Nuevo Producto</a></li>
-						<li><a href="#">Lista de Productos</a></li>
-					</ul>
-				</li>
-				<li class="principal">
-					<a href="#">Facturas</a>
-					<ul>
-						<li><a href="#">Nuevo Factura</a></li>
-						<li><a href="#">Facturas</a></li>
-					</ul>
-				</li>
-			</ul>
-		</nav>
-	</header>
-	<section id="container">
-		<h1>Bienvenido al sistema</h1>
-	</section>
-</body>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login | SRC Supermercado</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <section id="container">
+            <form action="" method="post">
+                <h3>Iniciar Sesi&oacute;n</h3>
+                <img src="img/login.png" alt="Login">
+
+                <input type="text" name="usuario" placeholder="Usuario">
+                <input type="password" name="clave" placeholder="Contraseña">
+
+                <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
+
+                <input type="submit" value="INGRESAR">
+            </form>
+        </section>
+    </body>
 </html>
