@@ -1,10 +1,11 @@
 <?php
+include '../conexion.php';
+
 if (!empty($_POST)) {
     $alert = '';
     if (empty($_POST['nombre']) || empty($_POST['correo']) || empty($_POST['usuario']) || empty($_POST['clave']) || empty($_POST['rol'])) {
         $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
     } else {
-        include '../conexion.php';
 
         $nombre = $_POST['nombre'];
         $email = $_POST['correo'];
@@ -66,7 +67,7 @@ if (!empty($_POST)) {
                         if ($result_rol > 0) {
                             while ($rol = mysqli_fetch_array($query_rol)) {
                                 ?>
-                        <option value="<?php echo $rol['idrol']; ?>"><?php echo $rol['rol']; ?></option>
+                                <option value="<?php echo $rol['idrol']; ?>"><?php echo $rol['rol']; ?></option>
                                 <?php
                             }
                         }
