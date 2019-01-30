@@ -3,7 +3,7 @@ include '../conexion.php';
 
 if (!empty($_POST)) {
     $alert = '';
-    if (empty($_POST['nombre']) || empty($_POST['correo']) || empty($_POST['usuario']) || empty($_POST['clave']) || empty($_POST['rol'])) {
+    if (empty($_POST['nombre']) || empty($_POST['correo']) || empty($_POST['usuario']) || empty($_POST['rol'])) {
         $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
     } else {
         $idUsuario = $_POST['idUsuario'];
@@ -21,11 +21,10 @@ if (!empty($_POST)) {
             $alert = '<p class="msg_error">El correo o el usuario ya existe.</p>';
         } else {
             
-            if(empty($_POST['clave']))
-            {
-                $sql_update = mysqli_query($conection, "UPDATE usuario SET nombre = '$nombre', correo='$email', usuario='$user', rol='$rol' WHERE idusuario = $idUsuario ");
-            } else {
+            if(!empty($_POST['clave'])){
                 $sql_update = mysqli_query($conection, "UPDATE usuario SET nombre = '$nombre', correo='$email', usuario='$user',clave='$clave', rol='$rol' WHERE idusuario = $idUsuario ");
+            } else {
+                $sql_update = mysqli_query($conection, "UPDATE usuario SET nombre = '$nombre', correo='$email', usuario='$user', rol='$rol' WHERE idusuario = $idUsuario ");
             }
             
   
