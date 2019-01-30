@@ -50,7 +50,7 @@ include '../conexion.php';
                     $rol=" OR rol LIKE '%1%' ";
                 }elseif ($busqueda == 'supervisor') {
                      $rol=" OR rol LIKE '%2%' ";
-                }elseif ($busqueda == 'vendedor') {
+                }elseif ($busqueda == 'cajero') {
                      $rol=" OR rol LIKE '%3%' ";
                 }
                 
@@ -117,26 +117,40 @@ include '../conexion.php';
                 ?>
 
             </table>
-            <div class="paginador">
-                <ul>
-                    <li><a href="#">|<<</a></li>
-                    <li><a href="#"> <<< </a></li>
-                    <?php 
-                        for($i=1; $i <= $total_registro; $i++){
-                            if ($i == $pagina){
-                               echo '<li><a class "pageSelect">'.$i.'</a></li>';  
-                            } else {
-                               echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
-                            }
-                           
-                        }
-                    ?>
-                    
-                    <li><a href="#">>>></a></li>
-                    <li><a href="#">>>|</a></li>
-                </ul>
-            </div>
+              <?php 
+	
+	if($total_registro != 0)
+	{
+ ?>
+		<div class="paginador">
+			<ul>
+			<?php 
+				if($pagina != 1)
+				{
+			 ?>
+				<li><a href="?pagina=<?php echo 1; ?>&busqueda=<?php echo $busqueda; ?>">|<</a></li>
+				<li><a href="?pagina=<?php echo $pagina-1; ?>&busqueda=<?php echo $busqueda; ?>"><<</a></li>
+			<?php 
+				}
+				for ($i=1; $i <= $total_paginas; $i++) { 
+					# code...
+					if($i == $pagina)
+					{
+						echo '<li class="pageSelected">'.$i.'</li>';
+					}else{
+						echo '<li><a href="?pagina='.$i.'&busqueda='.$busqueda.'">'.$i.'</a></li>';
+					}
+				}
 
+				if($pagina != $total_paginas)
+				{
+			 ?>
+				<li><a href="?pagina=<?php echo $pagina + 1; ?>&busqueda=<?php echo $busqueda; ?>">>></a></li>
+				<li><a href="?pagina=<?php echo $total_paginas; ?>&busqueda=<?php echo $busqueda; ?> ">>|</a></li>
+			<?php } ?>
+			</ul>
+		</div>
+<?php } ?>
         </section>
 
         <?php include "includes/footer.php"; ?>
