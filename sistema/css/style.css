@@ -160,6 +160,15 @@ nav li ul li:last-child{
 #container{
     padding: 90px 15px 15px;
 }
+
+footer {
+    align-self: flex-end;
+    background: #0a4661;
+    line-height: 3;
+    text-align: center;
+    width: 100%;
+    color: #FFF;
+}
 /*****************************************************************/
 
 .form_register {
