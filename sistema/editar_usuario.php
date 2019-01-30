@@ -20,14 +20,14 @@ if (!empty($_POST)) {
         if ($result > 0) {
             $alert = '<p class="msg_error">El correo o el usuario ya existe.</p>';
         } else {
-            
-            if(!empty($_POST['clave'])){
+
+            if (!empty($_POST['clave'])) {
                 $sql_update = mysqli_query($conection, "UPDATE usuario SET nombre = '$nombre', correo='$email', usuario='$user',clave='$clave', rol='$rol' WHERE idusuario = $idUsuario ");
             } else {
                 $sql_update = mysqli_query($conection, "UPDATE usuario SET nombre = '$nombre', correo='$email', usuario='$user', rol='$rol' WHERE idusuario = $idUsuario ");
             }
-            
-  
+
+
             if ($sql_update) {
                 $alert = '<p class="msg_save">Usuario actualizado correctamente.</p>';
             } else {
@@ -37,40 +37,39 @@ if (!empty($_POST)) {
     }
 }
 //mostrar datos 
-    if(empty($_GET['id'])){
-        header('Location: lista_usuarios.php');
-    }
-    $iduser = $_GET['id'];
-    
-    $sql= mysqli_query($conection, "SELECT u.idusuario, u.nombre, u.correo, u.usuario, (u.rol) as idrol, (r.rol) as rol "
-            . "FROM usuario u "
-            . "INNER JOIN rol r "
-            . "ON u.rol = r.idrol "
-            . "WHERE idusuario= $iduser " );
-    $result_sql = mysqli_num_rows($sql);
-    
-    if($result_sql == 0){
-        header('Location: lista_usuarios.php');
-    }else{
-        $option ='';
-        while ($data = mysqli_fetch_array($sql)){
-            $iduser = $data['idusuario'];
-            $nombre = $data['nombre'];
-            $correo = $data['correo'];
-            $usuario = $data['usuario'];
-            $idrol = $data['idrol'];
-            $rol = $data['rol'];
-         
-            if ($idrol ==  1){
-               $option = '<option value="'.$idrol.'" select> '.$rol.' </option>';
-            } else if ($idrol ==  2){
-               $option = '<option value="'.$idrol.'" select> '.$rol.' </option>';
-            } else if ($idrol ==  3){
-               $option = '<option value="'.$idrol.'" select> '.$rol.' </option>';
-            }
+if (empty($_GET['id'])) {
+    header('Location: lista_usuarios.php');
+}
+$iduser = $_GET['id'];
+
+$sql = mysqli_query($conection, "SELECT u.idusuario, u.nombre, u.correo, u.usuario, (u.rol) as idrol, (r.rol) as rol "
+        . "FROM usuario u "
+        . "INNER JOIN rol r "
+        . "ON u.rol = r.idrol "
+        . "WHERE idusuario= $iduser ");
+$result_sql = mysqli_num_rows($sql);
+
+if ($result_sql == 0) {
+    header('Location: lista_usuarios.php');
+} else {
+    $option = '';
+    while ($data = mysqli_fetch_array($sql)) {
+        $iduser = $data['idusuario'];
+        $nombre = $data['nombre'];
+        $correo = $data['correo'];
+        $usuario = $data['usuario'];
+        $idrol = $data['idrol'];
+        $rol = $data['rol'];
+
+        if ($idrol == 1) {
+            $option = '<option value="' . $idrol . '" select> ' . $rol . ' </option>';
+        } else if ($idrol == 2) {
+            $option = '<option value="' . $idrol . '" select> ' . $rol . ' </option>';
+        } else if ($idrol == 3) {
+            $option = '<option value="' . $idrol . '" select> ' . $rol . ' </option>';
         }
     }
-            
+}
 ?>
 
 <!DOCTYPE html>

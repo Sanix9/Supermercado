@@ -29,7 +29,7 @@
                 </tr>
                 
                 <?php 
-                $query = mysqli_query($conection,"SELECT u.idusuario, u.nombre, u.correo, u.usuario, r.rol FROM usuario  u INNER JOIN rol r  ON u.rol=r.idrol");
+                $query = mysqli_query($conection,"SELECT u.idusuario, u.nombre, u.correo, u.usuario, r.rol FROM usuario u INNER JOIN rol r ON u.rol=r.idrol WHERE estatus = 1");
                 
                 $result= mysqli_num_rows($query);
                 if ($result> 0) {
@@ -44,8 +44,11 @@
                     <td><?php echo $data["rol"]; ?></td>
                     <td>
                         <a class="link_edit" href="editar_usuario.php?id=<?php echo $data["idusuario"]; ?>">Editar</a>
+                        
+                        <?php if($data["idusuario"] != 1) {?>
                         |
-                        <a class="link_delete" href="#">Eliminar</a>
+                        <a class="link_delete" href="eliminar_confirmar_usuario.php?id=<?php echo $data["idusuario"]; ?>">Eliminar</a>
+                        <?php } ?>
                     </td>
                     
                 </tr>
