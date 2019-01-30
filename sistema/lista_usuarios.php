@@ -28,13 +28,30 @@ include '../conexion.php';
 
                 </tr>
 
-                <?php
-                $query = mysqli_query($conection, "SELECT u.idusuario, u.nombre, u.correo, u.usuario, r.rol FROM usuario u INNER JOIN rol r ON u.rol=r.idrol WHERE estatus = 1");
-
-                $result = mysqli_num_rows($query);
-                if ($result > 0) {
+                <?php 
+                //paginador
+                $sql_registe = mysqli_query($conection, "SELECT COUNT(*) as total_registro FROM usuario WHERE estatus =  1");
+                $result_registe = mysqli_fetch_array($sql_registe);
+                $total_registro = $result_registe['total_registro'];
+                
+                $por_pagina =5;
+                
+                if(empty($_GET['pagina']))
+                {
+                    $pagina = 1;
+                } else {
+                    $pagina = $_GET['pagina'];
+                }
+                
+                $desde = ($pagina-1) * $por_pagina;
+                $total_registro = ceil($total_registro / $por_pagina);
+                
+                $query = mysqli_query($conection,"SELECT u.idusuario, u.nombre, u.correo, u.usuario, r.rol FROM usuario  u INNER JOIN rol r  ON u.rol=r.idrol WHERE estatus = 1 ORDER BY u.idusuario ASC LIMIT $desde, $por_pagina");
+                
+                $result= mysqli_num_rows($query);
+                if ($result> 0) {
                     while ($data = mysqli_fetch_array($query)) {
-                        ?>      
+                 ?>       
 
                         <tr>
                             <td><?php echo $data["idusuario"]; ?></td>
@@ -58,6 +75,26 @@ include '../conexion.php';
                 ?>
 
             </table>
+            <div class="paginador">
+                <ul>
+                    <li><a href="#">|<<</a></li>
+                    <li><a href="#"> <<< </a></li>
+                    <?php 
+                        for($i=1; $i <= $total_registro; $i++){
+                            if ($i == $pagina){
+                               echo '<li><a class "pageSelect">'.$i.'</a></li>';  
+                            } else {
+                               echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
+                            }
+                           
+                        }
+                    ?>
+                    
+                    <li><a href="#">>>></a></li>
+                    <li><a href="#">>>|</a></li>
+                </ul>
+            </div>
+
         </section>
 
         <?php include "includes/footer.php"; ?>
