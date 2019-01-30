@@ -1,8 +1,15 @@
 <?php
+
+session_start();
+if ($_SESSION['rol'] != 1) {
+    header("location: ./");
+}
+
 include '../conexion.php';
 if (!empty($_POST)) {
     if ($_POST['idusuario'] == 1){
         header('Location: lista_usuarios.php');
+        mysqli_close($conection);
         exit;
     }
     $iduser = $_POST['idusuario'];
@@ -18,10 +25,12 @@ if (!empty($_POST)) {
 
 if (empty($_GET['id']) || $_GET['id'] == 1) {
     header('Location: lista_usuarios.php');
+    mysqli_close($conection);
 } else {
     $iduser = $_GET['id'];
 
     $sql = mysqli_query($conection, "SELECT u.nombre, u.usuario, r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.idusuario= $iduser ");
+    mysqli_close($conection);
     $result_sql = mysqli_num_rows($sql);
 
     if ($result_sql > 0) {

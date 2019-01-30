@@ -14,6 +14,7 @@ if (!empty($_SESSION['active'])) {
             $pass = md5(mysqli_real_escape_string($conection, $_POST['clave']));
 
             $query = mysqli_query($conection, "SELECT * FROM usuario WHERE usuario = '$user' AND clave = '$pass'");
+            mysqli_close($conection);
             $result = mysqli_num_rows($query);
 
             if ($result > 0) {
