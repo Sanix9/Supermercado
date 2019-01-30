@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../conexion.php';
 
 if (!empty($_POST)) {
@@ -52,8 +53,8 @@ if (!empty($_POST)) {
                 <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 
                 <form action="" method="post">
-                    <label for="nit">NIT </label>
-                    <input type="number" name="nit" id="correo" placeholder="Numero de NIT">
+                    <label for="nit">Cedula</label>
+                    <input type="number" name="nit" id="correo" placeholder="Numero de Cedula">
                     <label for="nombre">Nombre: </label>
                     <input type="text" name="nombre" id="nombre" placeholder="Nombre Completo">
                    
