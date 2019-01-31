@@ -69,13 +69,13 @@ include "../conexion.php";
                 $desde = ($pagina - 1) * $por_pagina;
                 $total_paginas = ceil($total_registro / $por_pagina);
 
-                $query = mysqli_query($conection, "SELECT * FROM usuario  
+                $query = mysqli_query($conection, "SELECT * FROM proveedor  
                                                                 WHERE( codproveedor LIKE '%$busqueda%' OR 
                                                                        proveedor LIKE '%$busqueda%' OR 
                                                                        contacto LIKE '%$busqueda%' OR 
                                                                        telefono LIKE '%$busqueda%' 
 									) 
-									AND estatus = 1 ORDER BY u.idusuario ASC LIMIT $desde,$por_pagina");
+									AND estatus = 1 ORDER BY codproveedor ASC LIMIT $desde,$por_pagina");
                 mysqli_close($conection);
                 $result = mysqli_num_rows($query);
                 if ($result > 0) {

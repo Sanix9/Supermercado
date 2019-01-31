@@ -39,5 +39,12 @@ $(document).ready(function () {
         $("#img").remove();
 
     });
+    
+    $('.add_product').click(function(e){
+       e.preventDefault();
+       e.preventDefault;
+       var producto = $(this).attr('product');
+        alert(producto);
+      });
 
 });
