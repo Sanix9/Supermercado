@@ -376,7 +376,7 @@ table td {
      border-radius: 5px;
  }
  
- .prevPhoto {
+.prevPhoto {
     display: flex;
     justify-content: space-between;
     width: 160px;

@@ -6,23 +6,39 @@ if ($_SESSION['rol'] != 1 and $_SESSION['rol'] != 2) {
 
 include '../conexion.php';
 
-if (empty($_POST)) {
+if (!empty($_POST)) {
     $alert = '';
-    if (empty($_POST['proveedor']) || empty($_POST['contacto']) || empty($_POST['telefono']) || empty($_POST['direccion'])) {
-        $alert = '<p class = "msg_error">Todos los campos son obligatorios.</p>';
+    if (empty($_POST['proveedor']) || empty($_POST['producto']) || empty($_POST['precio']) || empty($_POST['cantidad']) || $_POST['precio'] <= 0 || $_POST['cantidad'] <= 0) {
+        $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
     } else {
         $proveedor = $_POST['proveedor'];
-        $contacto = $_POST['contacto'];
-        $telefono = $_POST['telefono'];
-        $direccion = $_POST['direccion'];
-        $usuario_id = $_POST['idUser'];
+        $producto = $_POST['producto'];
+        $precio = $_POST['precio'];
+        $cantidad = $_POST['cantidad'];
+        $usuario_id = $_SESSION['idUser'];
 
-        $query_insert = mysqli_query($conection, "INSERT INTO proveedor(proveedor, contacto, telefono, direccion, usuario_id) VALUES ('$proveedor','$contacto','$telefono','$direccion', '$usuario_id')");
+        $foto = $_FILES['foto'];
+        $nombre_foto = $foto['name'];
+        $type = $foto['type'];
+        $url_temp = $foto['tmp_name'];
 
+        $imgProducto = 'img_producto.png';
+
+        if ($nombre_foto != '') {
+            $destino = 'img/uploads/';
+            $img_nombre = 'img_' . md5(date('d-m-Y H:m:s'));
+            $imgProducto = $img_nombre . '.jpg';
+            $src = $destino . $imgProducto;
+        }
+
+        $query_insert = mysqli_query($conection, "INSERT INTO producto(proveedor,descripcion,precio,existencia,usuario_id,foto) VALUES ('$proveedor ','$producto','$precio','$cantidad','$usuario_id','$imgProducto')");
         if ($query_insert) {
-            $alert = '<p class = "msg_save">Proveedor guardado correctamente.</p>';
+            if ($nombre_foto != '') {
+                move_uploaded_file($url_temp, $src);
+            }
+            $alert = '<p class="msg_save">Producto Guardado correctamente.</p>';
         } else {
-            $alert = '<p class = "msg_error">Error al guardar proveedor.</p>';
+            $alert = '<p class="msg_error">Error al Guardar el producto.</p>';
         }
     }
 }
@@ -44,7 +60,8 @@ if (empty($_POST)) {
                 <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 
                 <form action="" method="post" enctype="multipart/form-data">
-                    <label for="proveedor">Proveedor</label>
+
+                    <label for="proveedor">Proveedor: </label>
 
                     <?php
                     $query_proveedor = mysqli_query($conection, "SELECT codproveedor, proveedor FROM proveedor WHERE estatus = 1 ORDER BY proveedor ASC");
@@ -54,20 +71,23 @@ if (empty($_POST)) {
                     <select name="proveedor" id="proveedor">
                         <?php
                         if ($result_proveedor > 0) {
-                            while ($proveedor = mysqli_fetch_array($query_insert)) {
+                            while ($proveedor = mysqli_fetch_array($query_proveedor)) {
                                 ?>
-                        <option value="<?php echo $proveedor['codproveedor']; ?>"><?php echo $proveedor['proveedor']?></option>
+                                <option value="<?php echo $proveedor['codproveedor']; ?>"><?php echo $proveedor['proveedor']; ?></option>
                                 <?php
                             }
                         }
                         ?>
-                        
+
                     </select>
-                    <label for="producto">Producto</label>
+
+                    <label for="producto">Producto: </label>
                     <input type="text" name="producto" id="producto" placeholder="Nombre del Producto">
-                    <label for="precio">Precio</label>
+
+                    <label for="precio">Precio: </label>
                     <input type="number" name="precio" id="precio" placeholder="Precio del Producto">
-                    <label for="cantidad">Cantidad</label>
+
+                    <label for="cantidad">Cantidad: </label>
                     <input type="number" name="cantidad" id="cantidad" placeholder="Cantidad del Producto">
 
                     <div class="photo">
@@ -82,11 +102,11 @@ if (empty($_POST)) {
                         <div id="form_alert"></div>
                     </div>
 
-                    <button type="submit" class="btn_save"><i class="far fa-save fa-lg"></i> Guardar Producto</button>
+                    <button type="submit"  class="btn_save"><i class="far fa-save fa-lg"></i> Guardar Producto</button>
 
                 </form>
             </div>
         </section>
-        <?php include 'includes/footer.php'; ?>
+        <?php include "includes/footer.php"; ?> 
     </body>
 </html>
