@@ -54,7 +54,7 @@ $sql = mysqli_query($conection, "SELECT u.idusuario, u.nombre, u.correo, u.usuar
         . "FROM usuario u "
         . "INNER JOIN rol r "
         . "ON u.rol = r.idrol "
-        . "WHERE idusuario= $iduser ");
+        . "WHERE idusuario= $iduser AND estatus = 1");
 mysqli_close($conection);
 $result_sql = mysqli_num_rows($sql);
 
