@@ -37,18 +37,31 @@ $(document).ready(function () {
         $('#foto').val('');
         $(".delPhoto").addClass('notBlock');
         $("#img").remove();
+        
+        if ($("#foto_actual") && $("foto_remove")) {
+            $("#foto_remove").val('img_producto.png')
+        }
 
     });
-    
-      $('.add_product').click(function(e){
-       e.preventDefault();
-       e.preventDefault;
-       var producto = $(this).attr('product');
-        alert(producto);
+
+    $('.add_product').click(function (e) {
+        e.preventDefault();
+        e.preventDefault;
+        var producto = $(this).attr('product');
         $('.modal').fadeIn();
     });
-    
+
+    //Activa campos para registrar cliente
+    $('.btn_new_cliente').click(function (e) {
+        e.preventDefault();
+        $('#nom_cliente').removeAttr('disabled');
+        $('#tel_cliente').removeAttr('disabled');
+        $('#dir_cliente').removeAttr('disabled');
+        
+        $('#div_registro_cliente').slideDown();
+    });
+
 });
-function coloseModal(){
+function coloseModal() {
     $('.modal').fadeOut();
 }

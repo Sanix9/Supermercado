@@ -40,7 +40,7 @@ include '../conexion.php';
                         <label>Direccion</label>
                         <input type="text" name="dir_cliente" id="dir_cliente" disabled required>
                     </div>
-                    <div id="dic_registro_cliente" class="wd100">
+                    <div id="div_registro_cliente" class="wd100">
                         <button type="submit" class="btn_save"><i class="far fa-save fa-lg"></i> Guardar</button>
                     </div>
                 </form>
@@ -96,7 +96,7 @@ include '../conexion.php';
                         <td class="textright">100.00</td>
                         <td class="textright">100.00</td>
                         <td class="">
-                            <a class="link_delete" href="#"><i class="far fa-trash-alt"></i></a>
+                            <a class="link_delete" href="#" onclick="event.preventDefault(); del_producto_detalle(1);"><i class="far fa-trash-alt"></i></a>
                         </td>
                     </tr>
                 </tbody>
