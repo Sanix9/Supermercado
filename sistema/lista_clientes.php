@@ -55,13 +55,12 @@ include '../conexion.php';
                 $result = mysqli_num_rows($query);
                 if ($result > 0) {
                     while ($data = mysqli_fetch_array($query)) {
-                        
-                        if($data["nit"] == 0){
+
+                        if ($data["nit"] == 0) {
                             $nit = 'C/F';
                         } else {
                             $nit = $data["nit"];
                         }
-                        
                         ?>       
 
                         <tr>
@@ -70,10 +69,10 @@ include '../conexion.php';
                             <td><?php echo $data["nombre"]; ?></td>
                             <td><?php echo $data["telefono"]; ?></td>
                             <td><?php echo $data["direccion"]; ?></td>
-                          
+
                             <td>
                                 <a class="link_edit" href="editar_cliente.php?id=<?php echo $data["idcliente"]; ?>">Editar</a>
-                                
+                                <?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) { ?>
                                     |
                                     <a class="link_delete" href="eliminar_confirmar_cliente.php?id=<?php echo $data["idcliente"]; ?>">Eliminar</a>
                                 <?php } ?>
@@ -82,7 +81,7 @@ include '../conexion.php';
                         </tr>
                         <?php
                     }
-                
+                }
                 ?>
 
             </table>
@@ -107,6 +106,6 @@ include '../conexion.php';
 
         </section>
 
-<?php include "includes/footer.php"; ?>
+        <?php include "includes/footer.php"; ?>
     </body> 
 </html> 

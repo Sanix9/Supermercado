@@ -81,7 +81,7 @@ if (!empty($_POST)) {
                         ?>
 
                     </select>
-                    <button type="submit" class="btn_save"><i class="fas fa-save"></i> Crear Usuario</button>
+                    <button type="submit" class="btn_save"><i class="far fa-save"></i> Crear Usuario</button>
                 </form>
             </div>
         </section>
