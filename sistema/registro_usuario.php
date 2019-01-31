@@ -48,7 +48,7 @@ if (!empty($_POST)) {
         <?php include 'includes/header.php'; ?>
         <section id="container">
             <div class="form_register">
-                <h1>Registro Usuario</h1>
+                <h1><i class="fas fa-user-plus"></i> Registro Usuario</h1>
                 <hr>
                 <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 
@@ -81,7 +81,7 @@ if (!empty($_POST)) {
                         ?>
 
                     </select>
-                    <input type="submit" value="Crear Usuario" class="btn_save">
+                    <button type="submit" class="btn_save"><i class="fas fa-save"></i> Crear Usuario</button>
                 </form>
             </div>
         </section>
