@@ -15,13 +15,13 @@ if (!empty($_POST)) {
         $usuario_id = $_SESSION['idUser'];
         
         $result = 0;
-        if (is_numeric($nit)) {
+        if (is_numeric($nit) and $nit  !=0) {
           $query = mysqli_query($conection, "SELECT * FROM cliente WHERE nit = '$nit' ");
           $result = mysqli_fetch_array($query);
           }
          
           if ($result > 0) {
-              $alert = '<p class="msg_error">El numero de Nit ya existe.</p>';
+              $alert = '<p class="msg_error">El numero de cedula ya existe.</p>';
           } else {
                $query_insert = mysqli_query($conection, "INSERT INTO cliente(nit,nombre,telefono,direccion,usuario_id) VALUES ('$nit','$nombre','$telefono','$direccion','$usuario_id')");
                if ($query_insert) {
