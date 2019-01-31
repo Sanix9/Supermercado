@@ -3,8 +3,6 @@ session_start();
 include '../conexion.php';
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -57,11 +55,13 @@ include '../conexion.php';
                 $result = mysqli_num_rows($query);
                 if ($result > 0) {
                     while ($data = mysqli_fetch_array($query)) {
+                        
                         if($data["nit"] == 0){
                             $nit = 'C/F';
                         } else {
                             $nit = $data["nit"];
                         }
+                        
                         ?>       
 
                         <tr>
