@@ -24,7 +24,7 @@ if (empty($_SESSION['active'])) {
     <div class="bodyModal">
         <form action="" method="post" name="form_add_product" id="form_add_product" onsubmit="event.preventDefault(); sendDataProduct();">
         <h1><br>Agregar Producto</h1>
-        <h2 class="nameProducto">Monitor</h2><br>
+        <h2 class="nameProducto"></h2><br>
         <input type="number" name="cantidad" id="txtCantidad" placeholder="Cantidad del Producto" required><br>
 
         <input type="text" name="precio" id="txtPreci" placeholder="Precio del Producto" required>

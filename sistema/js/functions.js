@@ -37,7 +37,7 @@ $(document).ready(function () {
         $('#foto').val('');
         $(".delPhoto").addClass('notBlock');
         $("#img").remove();
-        
+
         if ($("#foto_actual") && $("foto_remove")) {
             $("#foto_remove").val('img_producto.png')
         }
@@ -46,8 +46,30 @@ $(document).ready(function () {
 
     $('.add_product').click(function (e) {
         e.preventDefault();
-        e.preventDefault;
+
         var producto = $(this).attr('product');
+        var action = 'infoProducto';
+
+        $.ajax({
+            url: 'ajax.php',
+            type: 'POST',
+            async: true,
+            data: {action: action, producto: producto},
+            success: function (response) {
+                console.log(response);
+                if (response != 'error') {
+                    var info = JSON.parse(response);
+                    console.log(info);
+
+                    $('#producto_id').val(info.codproducto);
+                    $('.nameProducto').html(info.descripcion);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
         $('.modal').fadeIn();
     });
 
@@ -57,11 +79,13 @@ $(document).ready(function () {
         $('#nom_cliente').removeAttr('disabled');
         $('#tel_cliente').removeAttr('disabled');
         $('#dir_cliente').removeAttr('disabled');
-        
         $('#div_registro_cliente').slideDown();
     });
 
 });
+
+
+
 function coloseModal() {
     $('.modal').fadeOut();
 }
