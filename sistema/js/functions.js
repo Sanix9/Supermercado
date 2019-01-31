@@ -40,11 +40,15 @@ $(document).ready(function () {
 
     });
     
-    $('.add_product').click(function(e){
+      $('.add_product').click(function(e){
        e.preventDefault();
        e.preventDefault;
        var producto = $(this).attr('product');
         alert(producto);
-      });
-
+        $('.modal').fadeIn();
+    });
+    
 });
+function coloseModal(){
+    $('.modal').fadeOut();
+}
